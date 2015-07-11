@@ -1,0 +1,30 @@
+configure terminal
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+username {{ ansible_ssh_user }} privilege 15 secret {{ ansible_ssh_pass }}
+
+hostname {{ inventory_hostname }}
+ip domain-name {{ domain_name }}
+
+crypto key generate rsa modulus 2048
+
+interface {{ management_interface }}
+  ip address {{ ansible_ssh_host }} 255.255.255.255
+  no shutdown
+
+ipv6 unicast-routing
+
+{% for interface in connected_interfaces %}
+interface {{ interface }}
+  no switchport
+  ipv6 address autoconfig
+  no shutdown
+{% endfor %}
+
+
+line vty 0 4
+ logging synchronous
+ transport input ssh
+
+end

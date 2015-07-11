@@ -1,0 +1,7 @@
+---
+
+ansible_ssh_user: cisco
+
+ansible_ssh_pass: cisco
+
+domain_name: local.net

@@ -1,0 +1,39 @@
+configure terminal
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+username cisco priviledge 15 secret cisco
+
+hostname BR-CORE
+ip domain-name local.net
+
+crypto key generate rsa modulus 2048
+
+interface Loopback0
+  ip address 10.0.1.1 255.255.255.255
+  no shutdown
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  ipv6 address autoconfig
+  no shutdown
+interface Ethernet0/1
+  ipv6 address autoconfig
+  no shutdown
+interface Ethernet0/2
+  ipv6 address autoconfig
+  no shutdown
+interface Ethernet0/3
+  ipv6 address autoconfig
+  no shutdown
+interface Ethernet1/0
+  ipv6 address autoconfig
+  no shutdown
+
+
+line vty 0 4
+ logging synchronous
+ transport input ssh
+
+end

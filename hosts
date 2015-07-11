@@ -1,0 +1,13 @@
+[branch:children]
+routers
+switches
+
+[routers]
+BR-WAN1 ansible_ssh_host=10.0.1.2
+BR-WAN2 ansible_ssh_host=10.0.1.3
+BR-CORE ansible_ssh_host=10.0.1.1
+[switches]
+BR-CORE ansible_ssh_host=10.0.1.1
+AS-01   ansible_ssh_host=10.0.1.4
+AS-02   ansible_ssh_host=10.0.1.5
+AS-03   ansible_ssh_host=10.0.1.6
