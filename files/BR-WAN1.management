@@ -37,6 +37,7 @@ log config
   logging enable
   exit
 do mkdir flash:/config-archive
+
 path flash:/config-archive/archive
 maximum 5
 write-memory

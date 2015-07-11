@@ -1,0 +1,34 @@
+{# first start with link aggregation #}
+{% if inventory_hostname in link_aggregation %}
+  {% for channel_number in link_aggregation[inventory_hostname] %}
+    {% for interface in link_aggregation[inventory_hostname][channel_number] %}
+interface {{ interface }}
+ channel-group {{ channel_number }} mode active
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{# now configure trunks on switches #}
+{% if inventory_hostname in l2_links and inventory_hostname in groups['switches'] %}
+  {% for interface in l2_links[inventory_hostname] %}
+interface {{ interface }}
+  switchport mode trunk
+  switchport trunk allowed vlan {{ l2_links[inventory_hostname][interface] }}
+  {% endfor %}
+{% endif %}
+
+{# now configure trunks on routers#}
+{% if inventory_hostname in l2_links and inventory_hostname in groups['routers'] %}
+  {% for interface in l2_links[inventory_hostname] %}
+interface {{ interface }}
+  encapsulation dot1q vlan {{ l2_links[inventory_hostname][interface] }}
+  {% endfor %}
+{% endif %}
+
+{# now configure ip addresses #}
+{% if inventory_hostname in l3_links %}
+  {% for interface in l3_links[inventory_hostname] %}
+interface {{ interface }}
+  ip address {{ l3_links[inventory_hostname][interface] }}
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,8 @@
+
+
+  interface Eth0/0.12
+  encapsulation dot1q vlan 12
+  
+  interface Eth0/1.12
+  ip address 10.0.1.41 255.255.255.248
+  

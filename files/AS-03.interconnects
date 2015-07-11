@@ -1,0 +1,11 @@
+      interface Eth0/0
+ channel-group Po11 mode active
+      
+  interface Po11
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  
+
+  interface Vlan30
+  ip address 10.0.1.132 255.255.255.224
+  

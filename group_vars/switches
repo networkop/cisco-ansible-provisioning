@@ -1,15 +1,16 @@
 ---
 
 management_interface: Vlan30
-connected_interfaces: [Ethernet0/0]
+VLANS:
+  data_vlan: 10
+
+  voice_vlan: 20
+
+  mgmt_vlan: 30
+
+  printer_vlan: 40
+
+  wlan_vlan: 50
 
 
-data_vlan: 10
-
-voice_vlan: 20
-
-mgmt_vlan: 30
-
-printer_vlan: 40
-
-wlan_vlan: 50
+stp_mode: rstp

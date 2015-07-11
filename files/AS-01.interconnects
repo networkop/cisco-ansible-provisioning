@@ -1,0 +1,9 @@
+
+  interface Eth0/0
+  switchport mode trunk
+  switchport trunk allowed vlan all
+  
+
+  interface Vlan30
+  ip address 10.0.1.130 255.255.255.224
+  

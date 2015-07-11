@@ -1,0 +1,35 @@
+      interface Eth0/2
+ channel-group Po11 mode active
+      
+  interface Po11
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  interface Eth0/0
+  switchport mode trunk
+  switchport trunk allowed vlan all
+  interface Eth0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 12
+  
+  interface Po11
+  encapsulation dot1q vlan 10,20,30
+  interface Eth0/0
+  encapsulation dot1q vlan all
+  interface Eth0/1
+  encapsulation dot1q vlan 12
+  
+  interface Vlan12
+  ip address 10.0.1.46 255.255.255.248
+  interface Vlan10
+  ip address 10.0.1.65 255.255.255.224
+  interface Vlan20
+  ip address 10.0.1.97 255.255.255.224
+  interface Vlan30
+  ip address 10.0.1.129 255.255.255.224
+  interface Eth0/3
+  ip address 10.0.1.38 255.255.255.248
+  interface Vlan40
+  ip address 10.0.1.161 255.255.255.224
+  interface Vlan50
+  ip address 10.0.1.193 255.255.255.224
+  

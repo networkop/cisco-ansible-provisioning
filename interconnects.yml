@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  gather_facts: false
+  
+  connection: local
+  vars_files: 
+  - group_vars/interconnects
+  roles:
+  - interconnects

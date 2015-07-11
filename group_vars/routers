@@ -1,3 +1,2 @@
 ---
 management_interface: Loopback0
-connected_interfaces: [Ethernet0/0, Ethernet0/1, Ethernet0/2, Ethernet0/3, Ethernet1/0]
