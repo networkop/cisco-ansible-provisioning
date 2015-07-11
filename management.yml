@@ -7,4 +7,4 @@
   vars_files: 
   - group_vars/passwords
   roles:
-  - initial
+  - management

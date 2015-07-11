@@ -1,0 +1,120 @@
+service nagle
+no service pad
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec localtime show-timezone year
+service timestamps log datetime msec localtime show-timezone year
+service password-encryption
+service linenumber
+service slave-log 
+
+ip domain name {{ domain_name }}
+
+{% for ip in dns_ips %}
+ip name-server {{ ip }}
+{% endfor %}
+
+login on-failure log
+login on-success log
+
+ip tacacs source-interface {{ management_interface }}
+ntp source {{ management_interface }}
+ip domain lookup source-interface {{ management_interface }}
+ip telnet source-interface {{ management_interface }}
+ip ftp source-interface {{ management_interface }}
+ip tftp source-interface {{ management_interface }}
+ip ssh source-interface {{ management_interface }}
+logging source-interface {{ management_interface }}
+snmp-server trap-source {{ management_interface }}
+
+ip ssh maxstartups 4
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+
+archive
+log config
+  hidekeys
+  logging enable
+  exit
+do mkdir flash:/config-archive
+
+path flash:/config-archive/archive
+maximum 5
+write-memory
+
+logging trap notifications
+logging host {{ syslog_server }}
+logging buffered 10000
+no logging console
+logging monitor notifications
+
+snmp-server location {{ site_location }}
+snmp-server community {{ snmp_ro_community }} RO
+{% for ip in snmp_servers %}
+snmp-server host {{ ip }} {{ snmp_ro_community }}
+{% endfor %}
+snmp-server ifindex persist
+snmp-server contact {{ network_admin_contact }}
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps license
+snmp-server enable traps envmon
+snmp-server enable traps bgp
+snmp-server enable traps aaa_server
+snmp-server enable traps config
+snmp-server enable traps entity
+snmp-server enable traps fru-ctrl
+snmp-server enable traps cpu threshold
+snmp-server enable traps syslog
+
+
+{% if inventory_hostname in groups['routers']%}
+warm-reboot
+snmp-server enable traps flash insertion removal
+snmp-server enable traps entity-sensor threshold
+snmp-server enable traps isdn call-information
+snmp-server enable traps isdn layer2
+snmp-server enable traps isdn chan-not-avail
+snmp-server enable traps isdn ietf
+snmp-server enable traps firewall serverstatus
+snmp-server enable traps ccme
+snmp-server enable traps srst
+{% endif %}
+
+line con 0
+exec-timeout 5 0
+logging synchronous
+login local
+line aux 0
+exec-timeout 5 0
+logging synchronous
+login local
+line vty 0 15
+exec-timeout 15 0
+logging synchronous
+transport preferred ssh
+transport input ssh 
+transport output telnet ssh
+login local
+!
+ntp update-calendar
+
+{% for ntp in ntp_servers %}
+ntp server {{ ntp }}
+{% endfor %}
+
+aaa new-model
+
+aaa authentication login default group tacacs+ local
+aaa authorization exec default group tacacs+ local 
+aaa authorization commands 15 default group tacacs+ local 
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 0 default start-stop group tacacs+
+aaa accounting commands 1 default start-stop group tacacs+
+aaa accounting commands 15 default start-stop group tacacs+
+
+tacacs-server host {{ tacacs_ip }}
+tacacs-server directed-request
+tacacs-server key {{ tacacs_key }}
