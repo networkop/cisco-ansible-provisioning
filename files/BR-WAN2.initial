@@ -8,31 +8,22 @@ hostname BR-WAN2
 ip domain-name local.net
 
 crypto key generate rsa modulus 2048
-
-ipv6 unicast-routing
-
-interface Ethernet0/0
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
-interface Ethernet0/1
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
-interface Ethernet0/2
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
-interface Ethernet0/3
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
-interface Ethernet1/0
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
+	
 
 
+interface Eth0/0
+no shutdown
+!
+interface Eth0/0.12
+encapsulation dot1q vlan 12
+!
+  
+
+interface Eth0/1.12
+ip address 10.0.1.41 255.255.255.248
+no shutdown
+!
+  
 line vty 0 4
  logging synchronous
  transport input ssh

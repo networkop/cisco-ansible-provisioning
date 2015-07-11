@@ -1,0 +1,14 @@
+---
+IGP:
+  OSPF:
+    BR-CORE: [Vlan12, Eth1/0]
+    BR-WAN1: [Eth0/1]
+    BR-WAN2: [Eth0/2]
+EGP:
+  IBGP:
+    BR-CORE: [BR-WAN1, BR-WAN2]
+    BR-WAN1: [BR-CORE]
+    BR-WAN2: [BR-CORE]
+  EBGP:
+    BR-WAN1: [1.1.1.2, 65111]
+     

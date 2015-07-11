@@ -8,14 +8,20 @@ hostname AS-02
 ip domain-name local.net
 
 crypto key generate rsa modulus 2048
+	
 
-ipv6 unicast-routing
+interface Eth0/0
+switchport mode trunk
+switchport trunk allowed vlan except 40
+no shutdown
+!
 
-interface Ethernet0/0
-  no switchport
-  ipv6 address autoconfig
-  no shutdown
-
+interface Vlan30
+no switchport
+ip address 10.0.1.131 255.255.255.224
+no shutdown
+!
+  
 
 line vty 0 4
  logging synchronous

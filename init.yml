@@ -6,5 +6,6 @@
   connection: local
   vars_files: 
   - group_vars/passwords
+  - group_vars/interconnects
   roles:
   - initial
