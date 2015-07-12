@@ -1,0 +1,213 @@
+
+Building configuration...
+Current configuration : 3244 bytes
+!
+! Last configuration change at 02:30:59 AEST Mon Jul 13 2015
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname DC-WAN1
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone AEST 10 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name netops.com
+ip cef
+login on-failure log
+login on-success log
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+username cisco privilege 15 secret 5 $1$Lr4S$vsteaCqTFuipXZGSpqJE1.
+!
+redundancy
+!
+!
+ip ssh maxstartups 4
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh source-interface Loopback0
+ip ssh version 2
+!
+class-map match-all CLASS-VOICE
+match access-group name ACL-VOICE
+class-map match-all CLASS-APPS
+match access-group name ACL-VOICE
+!
+policy-map PMAP-QUEUE
+class CLASS-VOICE
+priority percent 10
+class CLASS-APPS
+bandwidth percent 80
+fair-queue
+class class-default
+fair-queue
+policy-map PMAP-SHAPING
+class class-default
+shape average percent 98
+service-policy PMAP-QUEUE
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ip address 10.0.1.2 255.255.255.255
+!
+interface Ethernet0/0
+no ip address
+!
+interface Ethernet0/0.11
+encapsulation dot1Q 11
+ip address 10.0.1.38 255.255.255.248
+!
+interface Ethernet0/1
+bandwidth qos-reference 10000
+ip address 1.1.1.1 255.255.255.0
+service-policy output PMAP-SHAPING
+!
+interface Ethernet0/2
+no ip address
+shutdown
+!
+interface Ethernet0/3
+no ip address
+shutdown
+!
+interface Serial1/0
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/1
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/2
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/3
+no ip address
+shutdown
+serial restart-delay 0
+!
+router ospf 100
+router-id 10.0.1.2
+network 0.0.0.0 255.255.255.255 area 0
+!
+router bgp 1
+bgp router-id 10.0.1.2
+bgp log-neighbor-changes
+network 10.0.1.2 mask 255.255.255.255
+aggregate-address 10.0.1.0 255.255.255.0
+neighbor 1.1.1.2 remote-as 1000
+neighbor 10.0.1.1 remote-as 1
+neighbor 10.0.1.1 update-source Loopback0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip access-list extended ACL-APPS
+permit tcp any any eq 3200
+permit tcp any any eq 3300
+permit tcp any any eq 3600
+permit tcp any any eq 389
+permit tcp any any eq 390
+permit tcp any any eq 3268
+permit tcp any any eq 3269
+permit tcp any any eq 993
+permit tcp any any eq pop3
+ip access-list extended ACL-VOICE
+permit udp any any range 16384 32767
+!
+logging trap notifications
+logging source-interface Loopback0
+logging host 10.0.1.100
+!
+snmp-server community RO_COMMUNITY RO
+snmp-server trap-source Loopback0
+snmp-server contact network_admin@netops.com
+snmp-server host 10.0.1.98 public
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+exec-timeout 30 0
+logging synchronous
+line aux 0
+line vty 0 4
+exec-timeout 30 0
+transport input ssh
+!
+ntp source Loopback0
+ntp update-calendar
+ntp server 10.0.1.99
+!
+end

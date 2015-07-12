@@ -1,0 +1,14 @@
+---
+vlans:
+  
+  11: CORE-WAN1
+  
+  12: CORE-WAN2
+  
+  100: SERVER-BACKEND
+  
+  200: SERVER-FRONTEND
+  
+  300: MGMT
+  
+  999: UNUSED

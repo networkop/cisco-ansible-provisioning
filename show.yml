@@ -1,0 +1,11 @@
+---
+
+- hosts: company
+  gather_facts: false
+  connection: local
+  
+  tasks:
+  - name: show all variables
+    debug: var=vlans
+    when: inventory_hostname in groups['switches']
+

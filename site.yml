@@ -1,0 +1,18 @@
+---
+
+- hosts: company
+  gather_facts: false
+  connection: local
+  vars_files: 
+  - group_vars/passwords
+  
+  roles:
+    - non-standard
+    - management
+
+- hosts: routers
+  gather_facts: false
+  connection: local
+
+  roles:
+    - wan-qos

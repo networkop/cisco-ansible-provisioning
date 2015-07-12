@@ -1,0 +1,13 @@
+---
+
+management_interface: Vlan300
+
+vlans:
+  
+  100: SERVER-BACKEND
+  
+  200: SERVER-FRONTEND
+  
+  300: MGMT
+  
+  999: UNUSED

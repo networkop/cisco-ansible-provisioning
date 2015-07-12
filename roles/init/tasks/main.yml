@@ -1,0 +1,6 @@
+---
+- name: Dump all config
+  raw: show running
+  register: show_run
+- name: dump to file
+  local_action: copy content="{{ show_run.stdout }}" dest=./files/{{ inventory_hostname }}.original

@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  gather_facts: false
+  
+  connection: local
+  vars_files: 
+  - group_vars/passwords
+  - group_vars/interconnects
+  roles:
+  - bootstrap

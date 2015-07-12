@@ -1,4 +1,5 @@
 ---
 
-- name: Generate management templates
-  template: src=management.conf.j2 dest=./files/{{inventory_hostname}}.management
+- name: Generate management configuration
+  template: src=management.j2 dest=./files/{{inventory_hostname}}.mgmt
+

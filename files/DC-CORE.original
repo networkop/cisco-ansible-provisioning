@@ -1,0 +1,209 @@
+
+Building configuration...
+Current configuration : 3419 bytes
+!
+! Last configuration change at 02:30:37 AEST Mon Jul 13 2015
+!
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname DC-CORE
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username cisco privilege 15 secret 5 $1$64R9$mleKlok2O1P3ZueJMGW8J.
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone AEST 10 0
+vtp mode transparent
+!
+ip cef
+!
+!
+no ip domain-lookup
+ip domain-name netops.com
+login on-failure log
+login on-success log
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1-4094 priority 16384
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 11
+name CORE-WAN1
+!
+vlan 12
+name CORE-WAN2
+!
+vlan 100
+name SERVER-BACKEND
+!
+vlan 200
+name SERVER-FRONTEND
+!
+vlan 300
+name MGMT
+!
+vlan 999
+name UNUSED
+!
+ip ssh maxstartups 4
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh source-interface Loopback0
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ip address 10.0.1.1 255.255.255.255
+!
+interface Ethernet0/0
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 11
+switchport mode trunk
+duplex auto
+spanning-tree portfast trunk
+!
+interface Ethernet0/1
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 12
+switchport mode trunk
+duplex auto
+spanning-tree portfast trunk
+!
+interface Ethernet0/2
+no switchport
+ip address 192.168.247.25 255.255.255.0
+spanning-tree portfast
+!
+interface Ethernet0/3
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 100,200,300
+switchport mode trunk
+duplex auto
+!
+interface Ethernet1/0
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet1/1
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet1/2
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet1/3
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Vlan11
+ip address 10.0.1.33 255.255.255.248
+!
+interface Vlan12
+ip address 10.0.1.41 255.255.255.248
+!
+interface Vlan100
+ip address 10.0.1.65 255.255.255.224
+!
+interface Vlan200
+ip address 10.0.1.97 255.255.255.224
+!
+interface Vlan300
+ip address 10.0.1.129 255.255.255.224
+!
+router ospf 100
+router-id 10.0.1.1
+passive-interface default
+no passive-interface Vlan11
+no passive-interface Vlan12
+network 0.0.0.0 255.255.255.255 area 0
+!
+router bgp 1
+bgp log-neighbor-changes
+network 192.168.247.0
+timers bgp 1 5
+neighbor RR-CLIENTS peer-group
+neighbor RR-CLIENTS remote-as 1
+neighbor RR-CLIENTS update-source Loopback0
+neighbor RR-CLIENTS route-reflector-client
+neighbor 10.0.1.2 peer-group RR-CLIENTS
+neighbor 10.0.1.3 peer-group RR-CLIENTS
+!
+!
+no ip http server
+!
+!
+logging trap notifications
+logging source-interface Loopback0
+logging host 10.0.1.100
+!
+!
+snmp-server community RO_COMMUNITY RO
+snmp-server trap-source Loopback0
+snmp-server contact network_admin@netops.com
+snmp-server host 10.0.1.98 public
+snmp ifmib ifindex persist
+!
+!
+!
+control-plane
+!
+!
+line con 0
+exec-timeout 30 0
+logging synchronous
+line aux 0
+line vty 0 4
+exec-timeout 30 0
+transport input ssh
+!
+ntp source Loopback0
+ntp update-calendar
+ntp server 10.0.1.99
+end

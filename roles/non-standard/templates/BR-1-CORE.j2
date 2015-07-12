@@ -1,0 +1,204 @@
+!
+hostname BR1-CORE
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+vtp mode transparent
+!
+ip cef
+!
+!
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+name DATA
+!
+vlan 20
+name VOICE
+!
+vlan 30
+name MGMT
+!
+vlan 40
+name PRINTER
+!
+vlan 50
+name WLAN
+!
+vlan 999
+name UNUSED
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ip address 10.0.2.1 255.255.255.255
+!
+interface Port-channel11
+switchport
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+!
+interface Ethernet0/0
+no switchport
+ip address 10.0.2.33 255.255.255.248
+!
+interface Ethernet0/1
+no switchport
+ip address 10.0.2.41 255.255.255.248
+!
+interface Ethernet0/2
+no switchport
+ip address 10.0.2.49 255.255.255.248
+!
+interface Ethernet0/3
+shutdown
+duplex auto
+!
+interface Ethernet1/0
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+channel-group 11 mode active
+!
+interface Ethernet1/1
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+channel-group 11 mode active
+!
+interface Ethernet1/2
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+!
+interface Ethernet1/3
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+!
+interface Ethernet2/0
+duplex auto
+!
+interface Ethernet2/1
+duplex auto
+!
+interface Ethernet2/2
+duplex auto
+!
+interface Ethernet2/3
+duplex auto
+!
+interface Ethernet3/0
+duplex auto
+!
+interface Ethernet3/1
+duplex auto
+!
+interface Ethernet3/2
+duplex auto
+!
+interface Ethernet3/3
+duplex auto
+!
+interface Ethernet4/0
+duplex auto
+!
+interface Ethernet4/1
+duplex auto
+!
+interface Ethernet4/2
+duplex auto
+!
+interface Ethernet4/3
+duplex auto
+!
+interface Ethernet5/0
+duplex auto
+!
+interface Ethernet5/1
+duplex auto
+!
+interface Ethernet5/2
+duplex auto
+!
+interface Ethernet5/3
+duplex auto
+!
+interface Vlan10
+ip address 10.0.2.65 255.255.255.224
+!
+interface Vlan20
+ip address 10.0.2.97 255.255.255.224
+!
+interface Vlan30
+ip address 10.0.2.129 255.255.255.224
+!
+interface Vlan40
+ip address 10.0.2.193 255.255.255.224
+!
+interface Vlan50
+ip address 10.0.2.161 255.255.255.224
+!
+router ospf 100
+passive-interface default
+no passive-interface Ethernet0/0
+no passive-interface Ethernet0/1
+network 0.0.0.0 255.255.255.255 area 0
+!
+router bgp 2
+bgp log-neighbor-changes
+timers bgp 1 5
+neighbor RR-CLIENTS peer-group
+neighbor RR-CLIENTS remote-as 2
+neighbor RR-CLIENTS update-source Loopback0
+neighbor RR-CLIENTS route-reflector-client
+neighbor 10.0.2.2 peer-group RR-CLIENTS
+neighbor 10.0.2.3 peer-group RR-CLIENTS
+!
+!
+no ip http server
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!

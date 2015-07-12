@@ -1,0 +1,101 @@
+!
+hostname DC-WAN1
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+interface Loopback0
+ip address 10.0.1.2 255.255.255.255
+!
+interface Ethernet0/0
+no ip address
+!
+interface Ethernet0/0.11
+encapsulation dot1Q 11
+ip address 10.0.1.38 255.255.255.248
+!
+interface Ethernet0/1
+ip address 1.1.1.1 255.255.255.0
+!
+interface Ethernet0/2
+no ip address
+shutdown
+!
+interface Ethernet0/3
+no ip address
+shutdown
+!
+interface Serial1/0
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/1
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/2
+no ip address
+shutdown
+serial restart-delay 0
+!
+interface Serial1/3
+no ip address
+shutdown
+serial restart-delay 0
+!
+router ospf 100
+router-id 10.0.1.2
+network 0.0.0.0 255.255.255.255 area 0
+!
+router bgp 1
+bgp router-id 10.0.1.2
+bgp log-neighbor-changes
+network 10.0.1.2 mask 255.255.255.255
+aggregate-address 10.0.1.0 255.255.255.0
+neighbor 1.1.1.2 remote-as 1000
+neighbor 10.0.1.1 remote-as 1
+neighbor 10.0.1.1 update-source Loopback0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!

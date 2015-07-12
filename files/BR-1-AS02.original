@@ -1,0 +1,271 @@
+
+Building configuration...
+Current configuration : 4274 bytes
+!
+! Last configuration change at 02:30:13 AEST Mon Jul 13 2015
+!
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname BR-AS02
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username cisco privilege 15 secret 5 $1$L1hm$O5MeG9AKDZ2fA1ugn1RK..
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone AEST 10 0
+vtp mode transparent
+no ip routing
+!
+no ip cef
+!
+!
+no ip domain-lookup
+ip domain-name netops.com
+login on-failure log
+login on-success log
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+name DATA
+!
+vlan 20
+name VOICE
+!
+vlan 30
+name MGMT
+!
+vlan 40
+name PRINTER
+!
+vlan 49
+!
+vlan 50
+name WLAN
+!
+vlan 999
+name UNUSED
+!
+ip ssh maxstartups 4
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh source-interface Vlan30
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+!
+interface Ethernet0/1
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet0/2
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet0/3
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet1/0
+duplex auto
+!
+interface Ethernet1/1
+duplex auto
+!
+interface Ethernet1/2
+duplex auto
+!
+interface Ethernet1/3
+duplex auto
+!
+interface Ethernet2/0
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/1
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/2
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/3
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/0
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/1
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/2
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/3
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/0
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/1
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/2
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/3
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/0
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/1
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/2
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/3
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Vlan30
+ip address 10.0.2.131 255.255.255.224
+!
+ip default-gateway 10.0.2.129
+!
+no ip http server
+!
+!
+logging trap notifications
+logging source-interface Vlan30
+logging host 10.0.1.100
+!
+!
+snmp-server community RO_COMMUNITY RO
+snmp-server trap-source Vlan30
+snmp-server contact network_admin@netops.com
+snmp-server host 10.0.1.98 public
+snmp ifmib ifindex persist
+!
+!
+!
+control-plane
+!
+!
+line con 0
+exec-timeout 30 0
+logging synchronous
+line aux 0
+line vty 0 4
+exec-timeout 30 0
+transport input ssh
+!
+ntp source Vlan30
+ntp update-calendar
+ntp server 10.0.1.99
+end

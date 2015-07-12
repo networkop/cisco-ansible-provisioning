@@ -1,0 +1,47 @@
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+username cisco privilege 15 secret cisco
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+aaa session-id common
+!
+clock timezone AEST 10 0
+!
+ip domain-name netops.com
+no ip domain-lookup
+!
+login on-failure log
+login on-success log
+!
+logging trap notifications
+logging source-interface Vlan30
+logging host 10.0.1.100
+!
+snmp-server community RO_COMMUNITY RO
+snmp-server trap-source Vlan30
+snmp-server contact network_admin@netops.com
+snmp-server host 10.0.1.98 public
+snmp ifmib ifindex persist
+!
+ntp source Vlan30
+
+ntp update-calendar
+
+ntp server 10.0.1.99
+!
+ip ssh maxstartups 4
+ip ssh time-out 60
+ip ssh authentication-retries 2
+ip ssh source-interface Vlan30
+ip ssh version 2
+!
+line con 0
+exec-timeout 30 0
+logging synchronous
+line aux 0
+line vty 0 4
+transport input ssh
+exec-timeout 30 0

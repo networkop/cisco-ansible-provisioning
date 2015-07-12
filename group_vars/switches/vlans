@@ -1,0 +1,9 @@
+---
+vlans:
+  10: DATA
+  20: VOICE
+  30: MGMT
+  40: PRINTER
+  50: WLAN
+  999: UNUSED
+

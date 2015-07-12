@@ -1,0 +1,226 @@
+!
+hostname BR-AS03
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+vtp mode transparent
+no ip routing
+!
+no ip cef
+!
+!
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+name DATA
+!
+vlan 20
+name VOICE
+!
+vlan 30
+name MGMT
+!
+vlan 40
+name PRINTER
+!
+vlan 50
+name WLAN
+!
+vlan 999
+name UNUSED
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+switchport trunk encapsulation dot1q
+switchport trunk native vlan 999
+switchport trunk allowed vlan 10-50
+switchport mode trunk
+duplex auto
+!
+interface Ethernet0/1
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet0/2
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet0/3
+switchport access vlan 999
+switchport mode access
+shutdown
+duplex auto
+!
+interface Ethernet1/0
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet1/1
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet1/2
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet1/3
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/0
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/1
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/2
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet2/3
+switchport access vlan 10
+switchport mode access
+switchport voice vlan 20
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/0
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/1
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/2
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet3/3
+switchport access vlan 50
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/0
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/1
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/2
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet4/3
+switchport access vlan 40
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/0
+switchport access vlan 30
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/1
+switchport access vlan 30
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/2
+switchport access vlan 30
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Ethernet5/3
+switchport access vlan 30
+switchport mode access
+duplex auto
+spanning-tree portfast
+!
+interface Vlan30
+ip address 10.0.2.132 255.255.255.224
+!
+ip default-gateway 10.0.2.129
+!
+no ip http server
+!
+!
+!
+!
+!
+control-plane
+!
+!

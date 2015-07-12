@@ -1,0 +1,35 @@
+ip access-list extended ACL-APPS
+permit tcp any any eq 3200
+permit tcp any any eq 3300
+permit tcp any any eq 3600
+permit tcp any any eq 389
+permit tcp any any eq 390
+permit tcp any any eq 3268
+permit tcp any any eq 3269
+permit tcp any any eq 993
+permit tcp any any eq pop3
+ip access-list extended ACL-VOICE
+permit udp any any range 16384 32767
+
+!
+class-map match-all CLASS-VOICE
+match access-group name ACL-VOICE
+class-map match-all CLASS-APPS
+match access-group name ACL-VOICE
+!
+policy-map PMAP-QUEUE
+class CLASS-VOICE
+priority percent 10
+class CLASS-APPS
+bandwidth percent 80
+fair-queue
+class class-default
+fair-queue
+policy-map PMAP-SHAPING
+class class-default
+shape average percent 98
+service-policy PMAP-QUEUE
+
+interface Ethernet0/1
+bandwidth qos-reference 10000
+service-policy output PMAP-SHAPING

@@ -1,0 +1,6 @@
+---
+
+- name: Generate management configuration
+  template: src=wan-qos.j2 dest=./files/{{inventory_hostname}}.wan-qos
+  when: inventory_hostname in external_interface_bw
+

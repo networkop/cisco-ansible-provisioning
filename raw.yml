@@ -1,0 +1,21 @@
+---
+
+- hosts: DC-CORE
+  gather_facts: false
+  
+  vars_files:
+  - group_vars/passwords
+
+  vars:
+      command_string: " {{ lookup('file', './test') }} "
+  tasks:
+#  - name: test raw
+#    raw: conf t
+#    raw: service password-encryption
+#    register: result
+#  - name: try with script
+#   script: ./test
+  - name: test local scp
+    shell: scp test cisco@192.168.247.25:test
+  - debug: var=result
+

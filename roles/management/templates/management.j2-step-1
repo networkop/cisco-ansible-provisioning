@@ -1,0 +1,42 @@
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+ !
+!
+username {{ ansible_ssh_user }} privilege 15 secret {{ ansible_ssh_pass }} 
+aaa new-model
+!
+!
+aaa authorization exec default local
+!
+aaa session-id common
+clock timezone {{ time_zone_name }} {{ time_zone_hours }} {{ time_zone_minutes }}
+!
+ip domain-name  {{ domain_name }}
+login on-failure log
+login on-success log
+!
+logging trap notifications
+logging source-interface {{ management_interface }}
+logging host {{ syslog_server }}
+!
+!
+snmp-server community {{ snmp_ro_community }} RO
+snmp-server trap-source {{ management_interface }}
+snmp-server contact  {{ snmp_contact }} 
+{% for ip in snmp_servers %}
+snmp-server host {{ ip }} {{ snmp_servers[ip] }}
+{% endfor %}
+snmp ifmib ifindex persist
+!
+!
+!
+line con 0
+logging synchronous
+line aux 0
+line vty 0 4
+!
+ntp source {{ management_interface }}
+ntp update-calendar
+ntp server {{ ntp_server_ip }}
+

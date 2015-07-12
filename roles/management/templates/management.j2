@@ -1,0 +1,21 @@
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+{% include "aaa.j2" %}
+!
+clock timezone {{ time_zone_name }} {{ time_zone_hours }} {{ time_zone_minutes }}
+!
+ip domain-name {{ domain_name }}
+no ip domain-lookup
+!
+{% include "logging.j2" %}
+!
+{% include "snmp.j2" %}
+!
+{% include "ntp.j2" %}
+!
+{% include "ssh.j2" %}
+!
+{% include "vty.j2" %}

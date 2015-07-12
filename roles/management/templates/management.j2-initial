@@ -1,0 +1,40 @@
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+ !
+!
+username cisco privilege 15 secret 5 $1$L1hm$O5MeG9AKDZ2fA1ugn1RK..
+aaa new-model
+!
+!
+aaa authorization exec default local
+!
+aaa session-id common
+clock timezone AEST 10 0
+!
+ip domain-name netops.com
+login on-failure log
+login on-success log
+!
+logging trap notifications
+logging source-interface Vlan300
+logging host 10.0.1.100
+!
+!
+snmp-server community RO_COMMUNITY RO
+snmp-server trap-source Vlan300
+snmp-server contact networkop.github.io
+snmp-server host 10.0.1.98 public
+snmp ifmib ifindex persist
+!
+!
+!
+line con 0
+logging synchronous
+line aux 0
+line vty 0 4
+!
+ntp source Vlan300
+ntp update-calendar
+ntp server 10.0.1.99
+
