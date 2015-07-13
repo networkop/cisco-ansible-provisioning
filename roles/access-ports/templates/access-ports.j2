@@ -1,0 +1,18 @@
+{%- for vlan in access_ports %}
+  {%- for sw_module in access_ports[vlan] %}
+    {%- for int_range in access_ports[vlan][sw_module] %}
+      {%- for x in range(int_range[0],int_range[1]) %}    
+        interface range {{ sw_module }}/{{ x }}
+        switchport mode access
+        switchport access vlan {{ vlan }}
+        switchport spanning-tree portfast
+        {% if vlan == 999 -%}
+        shutdown
+        {% endif -%}
+        {% if vlan == 10 -%}
+        switchport voice vlan 20
+        {% endif -%}
+      {% endfor -%}
+    {% endfor -%}
+  {% endfor -%}
+{% endfor -%}

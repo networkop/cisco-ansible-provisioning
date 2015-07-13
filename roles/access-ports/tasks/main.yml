@@ -1,0 +1,6 @@
+---
+
+- name: Generate management configuration
+  template: src=access-ports.j2 dest=./files/{{inventory_hostname}}.accces-ports
+  when: access_ports is defined
+

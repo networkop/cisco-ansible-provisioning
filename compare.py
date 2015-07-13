@@ -4,7 +4,7 @@
 import os.path
 
 DEVICES = ['BR-1-AS01', 'BR-1-AS02', 'BR-1-AS03', 'BR-1-CORE', 'BR-1-WAN-1', 'BR-1-WAN-2', 'DC-CORE', 'DC-TOR', 'DC-WAN-1', 'DC-WAN-2']
-EXTENSIONS = ['conf', 'mgmt', 'wan-qos']
+EXTENSIONS = ['conf', 'mgmt', 'wan-qos', 'accces-ports', 'vlan']
 ORIGINAL_EXT = 'original'
 DIRECTORY = './files/'
 IGNORE_LINES = ('!', '#', 'username', 'Building configuration', 'Current configuration', 'version')
@@ -18,8 +18,8 @@ def merge(device_name):
 def compare(merged, original, direction):
     found_error = False
     for line in merged.splitlines():
-        if not line.startswith(IGNORE_LINES):
-            if line not in original:
+        if not line.strip().startswith(IGNORE_LINES):
+            if line.strip() not in original:
                 print "ORIGNAL " + direction + " MERGED : " + line
                 found_error = True
     if not found_error:

@@ -1,0 +1,25 @@
+---
+access_ports:
+  10:
+    Ethernet0:
+      - - 0
+        - 3
+    Ethernet2:
+      - - 0
+        - 3
+  30:
+    Ethernet3:
+      - - 0
+        - 3
+  50:
+    Ethernet5:
+      - - 0
+        - 3
+  40:
+    Ethernet4:
+      - - 0
+        - 3
+  999:
+    Ethernet0:
+      - - 1
+        - 3

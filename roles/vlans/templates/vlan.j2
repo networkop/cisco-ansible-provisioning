@@ -1,0 +1,15 @@
+{% for vlan in vlans -%}
+vlan {{ vlan }}
+name {{ vlans[vlan] }}
+{% endfor %}
+
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+vtp mode transparent
+
+
+
+{% if inventory_hostname in groups['core_switches'] -%}
+spanning-tree vlan 1-4094 priority 16384
+{%- endif %}

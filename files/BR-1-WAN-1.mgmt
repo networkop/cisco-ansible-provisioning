@@ -1,7 +1,8 @@
 service timestamps debug datetime msec
 service timestamps log datetime msec
 service password-encryption
-!
+service compress-config
+!!
 username cisco privilege 15 secret cisco
 aaa new-model
 aaa authentication login default local

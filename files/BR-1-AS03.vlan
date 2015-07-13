@@ -1,0 +1,20 @@
+vlan 999
+name UNUSED
+vlan 40
+name PRINTER
+vlan 10
+name DATA
+vlan 50
+name WLAN
+vlan 20
+name VOICE
+vlan 30
+name MGMT
+
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+vtp mode transparent
+
+
+

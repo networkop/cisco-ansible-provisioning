@@ -1,4 +1,4 @@
-[company:children]
+[acme:children]
 DC
 branch-1
 
@@ -24,10 +24,16 @@ BR-1-CORE
 BR-1-WAN-1
 BR-1-WAN-2
 
-[switches]
+[switches:children]
+access_switches
+core_switches
+
+[core_switches]
 DC-CORE
-DC-TOR
 BR-1-CORE
+
+[access_switches]
+DC-TOR
 BR-1-AS01
 BR-1-AS02
 BR-1-AS03

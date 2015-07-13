@@ -1,13 +1,25 @@
 ---
-
 management_interface: Vlan300
-
 vlans:
-  
   100: SERVER-BACKEND
-  
   200: SERVER-FRONTEND
-  
   300: MGMT
-  
   999: UNUSED
+
+access_ports:
+  100:
+    Ethernet1:
+      - - 0
+        - 3
+  200:
+    Ethernet2:
+      - - 0
+        - 3
+  999:
+    Ethernet0:
+      - - 1
+        - 3
+    Ethernet3:
+      - - 0
+        - 3
+

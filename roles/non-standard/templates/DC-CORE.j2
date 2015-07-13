@@ -6,7 +6,6 @@ boot-end-marker
 !
 !
 !
-vtp mode transparent
 !
 ip cef
 !
@@ -15,38 +14,6 @@ no ipv6 cef
 ipv6 multicast rpf use-bgp
 !
 !
-!
-!
-!
-!
-!
-!
-spanning-tree mode rapid-pvst
-spanning-tree extend system-id
-spanning-tree vlan 1-4094 priority 16384
-!
-!
-!
-!
-vlan internal allocation policy ascending
-!
-vlan 11
-name CORE-WAN1
-!
-vlan 12
-name CORE-WAN2
-!
-vlan 100
-name SERVER-BACKEND
-!
-vlan 200
-name SERVER-FRONTEND
-!
-vlan 300
-name MGMT
-!
-vlan 999
-name UNUSED
 !
 !
 !

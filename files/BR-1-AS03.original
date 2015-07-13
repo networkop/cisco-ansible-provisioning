@@ -1,8 +1,6 @@
 
 Building configuration...
-Current configuration : 4563 bytes
-!
-! Last configuration change at 02:16:01 AEST Mon Jul 13 2015
+Current configuration : 4500 bytes
 !
 version 15.1
 service timestamps debug datetime msec
@@ -172,25 +170,25 @@ duplex auto
 spanning-tree portfast
 !
 interface Ethernet3/0
-switchport access vlan 50
+switchport access vlan 30
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet3/1
-switchport access vlan 50
+switchport access vlan 30
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet3/2
-switchport access vlan 50
+switchport access vlan 30
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet3/3
-switchport access vlan 50
+switchport access vlan 30
 switchport mode access
 duplex auto
 spanning-tree portfast
@@ -220,25 +218,25 @@ duplex auto
 spanning-tree portfast
 !
 interface Ethernet5/0
-switchport access vlan 30
+switchport access vlan 50
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet5/1
-switchport access vlan 30
+switchport access vlan 50
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet5/2
-switchport access vlan 30
+switchport access vlan 50
 switchport mode access
 duplex auto
 spanning-tree portfast
 !
 interface Ethernet5/3
-switchport access vlan 30
+switchport access vlan 50
 switchport mode access
 duplex auto
 spanning-tree portfast

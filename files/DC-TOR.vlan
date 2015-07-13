@@ -1,0 +1,16 @@
+vlan 200
+name SERVER-FRONTEND
+vlan 300
+name MGMT
+vlan 100
+name SERVER-BACKEND
+vlan 999
+name UNUSED
+
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+vtp mode transparent
+
+
+

@@ -1,7 +1,4 @@
-service timestamps debug datetime msec
-service timestamps log datetime msec
-service password-encryption
-service compress-config
+{% include "services.j2" %}
 !
 {% include "aaa.j2" %}
 !

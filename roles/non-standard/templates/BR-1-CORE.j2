@@ -6,49 +6,12 @@ boot-end-marker
 !
 !
 !
-vtp mode transparent
 !
 ip cef
 !
 !
 no ipv6 cef
 ipv6 multicast rpf use-bgp
-!
-!
-!
-!
-!
-!
-!
-!
-spanning-tree mode rapid-pvst
-spanning-tree extend system-id
-!
-!
-!
-!
-vlan internal allocation policy ascending
-!
-vlan 10
-name DATA
-!
-vlan 20
-name VOICE
-!
-vlan 30
-name MGMT
-!
-vlan 40
-name PRINTER
-!
-vlan 50
-name WLAN
-!
-vlan 999
-name UNUSED
-!
-!
-!
 !
 !
 !

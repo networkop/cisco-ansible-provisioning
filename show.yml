@@ -1,11 +1,11 @@
 ---
 
-- hosts: company
+- hosts: acme
   gather_facts: false
   connection: local
   
   tasks:
   - name: show all variables
-    debug: var=vlans
+    debug: var=access-ports
     when: inventory_hostname in groups['switches']
 

@@ -1,8 +1,6 @@
 
 Building configuration...
-Current configuration : 4274 bytes
-!
-! Last configuration change at 02:30:13 AEST Mon Jul 13 2015
+Current configuration : 4459 bytes
 !
 version 15.1
 service timestamps debug datetime msec
@@ -118,15 +116,27 @@ shutdown
 duplex auto
 !
 interface Ethernet1/0
+switchport access vlan 999
+switchport mode access
+shutdown
 duplex auto
 !
 interface Ethernet1/1
+switchport access vlan 999
+switchport mode access
+shutdown
 duplex auto
 !
 interface Ethernet1/2
+switchport access vlan 999
+switchport mode access
+shutdown
 duplex auto
 !
 interface Ethernet1/3
+switchport access vlan 999
+switchport mode access
+shutdown
 duplex auto
 !
 interface Ethernet2/0

@@ -1,0 +1,21 @@
+vlan 100
+name SERVER-BACKEND
+vlan 999
+name UNUSED
+vlan 200
+name SERVER-FRONTEND
+vlan 300
+name MGMT
+vlan 11
+name CORE-WAN1
+vlan 12
+name CORE-WAN2
+
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+vtp mode transparent
+
+
+
+spanning-tree vlan 1-4094 priority 16384

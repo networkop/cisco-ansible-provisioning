@@ -1,13 +1,11 @@
 
 Building configuration...
-Current configuration : 3419 bytes
-!
-! Last configuration change at 02:30:37 AEST Mon Jul 13 2015
+Current configuration : 3421 bytes
 !
 version 15.1
 service timestamps debug datetime msec
 service timestamps log datetime msec
-no service password-encryption
+service password-encryption
 service compress-config
 !
 hostname DC-CORE
@@ -15,9 +13,10 @@ hostname DC-CORE
 boot-start-marker
 boot-end-marker
 !
+no shell processing
 !
 !
-username cisco privilege 15 secret 5 $1$64R9$mleKlok2O1P3ZueJMGW8J.
+username cisco privilege 15 nohangup secret 5 $1$64R9$mleKlok2O1P3ZueJMGW8J.
 aaa new-model
 !
 !
@@ -48,6 +47,7 @@ ipv6 multicast rpf use-bgp
 !
 !
 !
+file prompt quiet
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
@@ -81,6 +81,7 @@ ip ssh time-out 60
 ip ssh authentication-retries 2
 ip ssh source-interface Loopback0
 ip ssh version 2
+ip scp server enable
 !
 !
 !
