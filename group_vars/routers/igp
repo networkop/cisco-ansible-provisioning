@@ -1,0 +1,8 @@
+---
+ospf:
+  global:
+    - default auto-cost reference-bandwidth 100000
+    - router-id {{ l3_intf[inventory_hostname][management_interface] | ipaddr('address') }}
+    - network 0.0.0.0 255.255.255.255 area 0
+    - passive-interface default
+

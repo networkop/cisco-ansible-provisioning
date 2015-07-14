@@ -1,0 +1,6 @@
+router ospf 1
+  default auto-cost reference-bandwidth 100000
+  router-id 10.0.3.3
+  network 0.0.0.0 255.255.255.255 area 0
+  passive-interface default
+  no passive-interface Eth0/1.12

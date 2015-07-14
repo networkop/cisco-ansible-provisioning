@@ -1,0 +1,91 @@
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+username cisco privilege 15 secret cisco
+
+hostname BR2-CORE
+ip domain-name netops.com
+
+crypto key generate rsa modulus 2048
+
+line vty 0 4
+transport input ssh
+login local
+
+ 
+interface Eth0/2
+  channel-group 11 mode active
+  no shutdown
+    
+interface Eth0/3
+  channel-group 11 mode active
+  no shutdown
+   
+ 
+interface Po11
+  switchport mode trunk
+  switchport trunk allowed vlan 10-50
+  no shutdown
+   
+interface Eth1/1
+  switchport mode trunk
+  switchport trunk allowed vlan except 40
+  no shutdown
+   
+interface Eth0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 12
+  no shutdown
+   
+interface Eth0/0
+  switchport mode trunk
+  switchport trunk allowed vlan 11
+  no shutdown
+   
+interface Eth1/0
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30,40,50
+  no shutdown
+  
+
+ 
+interface Vlan12
+  no switchport
+  ip address 10.0.1.46 255.255.255.248
+  no shutdown
+   
+interface Vlan10
+  no switchport
+  ip address 10.0.3.65 255.255.255.224
+  no shutdown
+   
+interface Vlan11
+  no switchport
+  ip address 10.0.1.38 255.255.255.248
+  no shutdown
+   
+interface Vlan20
+  no switchport
+  ip address 10.0.3.97 255.255.255.224
+  no shutdown
+   
+interface Vlan30
+  no switchport
+  ip address 10.0.3.129 255.255.255.224
+  no shutdown
+   
+interface Loopback0
+  no switchport
+  ip address 10.0.3.1 255.255.255.255
+  no shutdown
+   
+interface Vlan40
+  no switchport
+  ip address 10.0.3.193 255.255.255.224
+  no shutdown
+   
+interface Vlan50
+  no switchport
+  ip address 10.0.3.161 255.255.255.224
+  no shutdown
+  

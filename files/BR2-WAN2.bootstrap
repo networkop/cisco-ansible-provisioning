@@ -1,0 +1,36 @@
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+username cisco privilege 15 secret cisco
+
+hostname BR2-WAN2
+ip domain-name netops.com
+
+crypto key generate rsa modulus 2048
+
+line vty 0 4
+transport input ssh
+login local
+
+
+
+  
+interface Eth0/1
+  no shutdown
+interface Eth0/1.12
+  encapsulation dot1q vlan 12
+  
+
+ 
+interface Loopback0
+  ip address 10.0.3.3 255.255.255.255
+  no shutdown
+   
+interface Eth0/0
+  ip address 2.2.3.1 255.255.255.0
+  no shutdown
+   
+interface Eth0/1.12
+  ip address 10.0.1.41 255.255.255.248
+  no shutdown
+  

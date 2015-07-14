@@ -1,0 +1,4 @@
+---
+bgp_comm_static: "{{ site_ASN }}:1"
+bgp_comm_3rdpty: "{{ site_ASN }}:3"
+bgp_comm_summary: "{{ site_ASN }}:0"

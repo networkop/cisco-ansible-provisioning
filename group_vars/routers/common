@@ -2,12 +2,15 @@
 management_interface: Loopback0
 
 external_interface_bw:
-  DC-WAN-1: 
+  DC-WAN1: 
     Ethernet0/1: 10000 
-  DC-WAN-2: 
+  DC-WAN2: 
     Ethernet0/1: 5000
-  BR-1-WAN-1: 
+  BR1-WAN1: 
     Ethernet0/0: 10000
-  BR-1-WAN-2: 
+  BR1-WAN2: 
     Ethernet0/0: 5000
-
+  BR2-WAN1:
+    Ethernet0/0: 10000
+  BR2-WAN2:
+    Ethernet0/0: 5000

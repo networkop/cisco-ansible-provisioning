@@ -1,6 +1,6 @@
 ---
 
-- hosts: acme
+- hosts: legacy
   gather_facts: false
   connection: local
   vars_files: 
@@ -13,9 +13,11 @@
 - hosts: routers
   gather_facts: false
   connection: local
-
   roles:
     - wan-qos
+    - routing
+  tags:
+    - test
 
 - hosts: switches
   gather_facts: false

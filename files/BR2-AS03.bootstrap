@@ -1,0 +1,36 @@
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+username cisco privilege 15 secret cisco
+
+hostname BR2-AS03
+ip domain-name netops.com
+
+crypto key generate rsa modulus 2048
+
+line vty 0 4
+transport input ssh
+login local
+
+ 
+interface Eth0/0
+  channel-group 11 mode active
+  no shutdown
+    
+interface Eth0/1
+  channel-group 11 mode active
+  no shutdown
+   
+ 
+interface Po11
+  switchport mode trunk
+  switchport trunk allowed vlan 10-50
+  no shutdown
+  
+
+ 
+interface Vlan30
+  no switchport
+  ip address 10.0.3.132 255.255.255.224
+  no shutdown
+  

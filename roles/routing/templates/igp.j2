@@ -1,0 +1,7 @@
+router ospf 1
+{% for option in ospf.global %}
+  {{ option }}
+{% endfor %}
+{% for interface in ospf_intf_list[inventory_hostname] %}
+  no passive-interface {{ interface }}
+{% endfor %}

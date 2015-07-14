@@ -1,0 +1,27 @@
+---
+bgp_originate_redistribute:
+  BR2-CORE:
+    - summary
+    - static
+  
+bgp_originate_network:
+  BR2-WAN1:
+    - Loopback0
+  BR2-WAN2:
+    - Loopback0
+
+ebgp_peers:
+  BR2-WAN1:
+    1.1.1.2:
+      - remote-as 1000
+  BR2-WAN2:
+    2.2.3.2:
+      - remote-as 2000
+      - route-map RM-BGP-PREPEND-OUT out
+  BR2-CORE:
+    10.0.2.49:
+       - remote-as 2
+
+ibgp_topo:
+  route_reflector: [BR2-CORE]
+  rr_clients: [BR2-WAN1, BR2-WAN2]

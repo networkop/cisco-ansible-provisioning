@@ -1,0 +1,25 @@
+route-map RM-BGP-FROM-STATIC permit 10
+  match tag 110
+  set community 3:1
+  !   
+route-map RM-BGP-FROM-SUMMARY permit 10
+  match tag 210
+  set community 3:0
+  !   
+!
+route-map RM-BGP-PREPEND-OUT permit 10
+  set as-path prepend 3 3 3 3 3 3 3
+!
+ip prefix-list PL-ALL-LOOPBACKS permit 0.0.0.0/0 le 32 ge 32
+!
+route-map RM-BGP-FALLOVER permit 10
+  match ip address prefix PL-ALL-LOOPBACKS
+!
+
+router bgp 3
+  network 10.0.3.3 mask 255.255.255.255
+  neighbor 2.2.3.2 remote-as 2000
+    neighbor 2.2.3.2 route-map RM-BGP-PREPEND-OUT out
+    neighbor 10.0.3.1 remote-as 3
+  neighbor 10.0.3.1 update-source Loopback0
+  

@@ -1,11 +1,11 @@
 ---
 
-- hosts: all
+- hosts: branch-2
   gather_facts: false
   
   connection: local
   vars_files: 
   - group_vars/passwords
-  - group_vars/interconnects
+  
   roles:
   - bootstrap

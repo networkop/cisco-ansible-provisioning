@@ -1,4 +1,4 @@
 ---
 
 - name: Generate initial configuration
-  template: src=initial.conf.j2 dest=./files/{{inventory_hostname}}.initial
+  template: src=bootstrap.conf.j2 dest=./files/{{inventory_hostname}}.bootstrap

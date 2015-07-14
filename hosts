@@ -1,28 +1,44 @@
 [acme:children]
 DC
 branch-1
+branch-2
 
 [DC]
 DC-CORE ansible_ssh_host=10.0.1.1
-DC-WAN-1 ansible_ssh_host=10.0.1.2
-DC-WAN-2 ansible_ssh_host=10.0.1.3
+DC-WAN1 ansible_ssh_host=10.0.1.2
+DC-WAN2 ansible_ssh_host=10.0.1.3
 DC-TOR ansible_ssh_host=10.0.1.130
 
 [branch-1]
-BR-1-CORE ansible_ssh_host=10.0.2.1
-BR-1-WAN-1 ansible_ssh_host=10.0.2.2
-BR-1-WAN-2 ansible_ssh_host=10.0.2.3
-BR-1-AS01 ansible_ssh_host=10.0.2.130
-BR-1-AS02 ansible_ssh_host=10.0.2.131
-BR-1-AS03 ansible_ssh_host=10.0.2.132
+BR1-CORE ansible_ssh_host=10.0.2.1
+BR1-WAN1 ansible_ssh_host=10.0.2.2
+BR1-WAN2 ansible_ssh_host=10.0.2.3
+BR1-AS01 ansible_ssh_host=10.0.2.130
+BR1-AS02 ansible_ssh_host=10.0.2.131
+BR1-AS03 ansible_ssh_host=10.0.2.132
+
+[legacy:children]
+DC
+branch-1
+
+[branch-2]
+BR2-CORE ansible_ssh_host=10.0.3.1
+BR2-WAN1 ansible_ssh_host=10.0.3.2
+BR2-WAN2 ansible_ssh_host=10.0.3.3
+BR2-AS01 ansible_ssh_host=10.0.3.130
+BR2-AS02 ansible_ssh_host=10.0.3.131
+BR2-AS03 ansible_ssh_host=10.0.3.132
 
 [routers]
 DC-CORE
-DC-WAN-1
-DC-WAN-2
-BR-1-CORE
-BR-1-WAN-1
-BR-1-WAN-2
+DC-WAN1
+DC-WAN2
+BR1-CORE
+BR1-WAN1
+BR1-WAN2
+BR2-WAN1
+BR2-WAN2
+BR2-CORE
 
 [switches:children]
 access_switches
@@ -30,11 +46,15 @@ core_switches
 
 [core_switches]
 DC-CORE
-BR-1-CORE
+BR1-CORE
+BR2-CORE
 
 [access_switches]
 DC-TOR
-BR-1-AS01
-BR-1-AS02
-BR-1-AS03
+BR1-AS01
+BR1-AS02
+BR1-AS03
+BR2-AS01
+BR2-AS02
+BR2-AS03
 

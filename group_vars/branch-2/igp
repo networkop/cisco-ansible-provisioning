@@ -1,0 +1,6 @@
+---
+ospf_intf_list:
+  BR2-CORE: [Vlan11, Vlan12]
+  BR2-WAN1: [Eth0/1.11]
+  BR2-WAN2: [Eth0/1.12]
+

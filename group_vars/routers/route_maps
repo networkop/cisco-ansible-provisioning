@@ -1,0 +1,11 @@
+---
+bgp_redistr_route_maps:
+  static:
+    - match tag {{ tags.static }}
+    - set community {{ bgp_comm_static }}
+  summary:
+    - match tag {{ tags.summary }}
+    - set community {{ bgp_comm_summary }}
+
+bgp_out_rmap_prepend:
+    - set as-path prepend {{ site_ASN }} {{ site_ASN }} {{ site_ASN }} {{ site_ASN }} {{ site_ASN }} {{ site_ASN }} {{ site_ASN }} 

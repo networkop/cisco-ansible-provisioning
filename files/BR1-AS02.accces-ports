@@ -1,5 +1,15 @@
     
-        interface range Ethernet1/2
+        interface range Ethernet4/0
+        switchport mode access
+        switchport access vlan 40
+        switchport spanning-tree portfast
+            
+        interface range Ethernet4/1
+        switchport mode access
+        switchport access vlan 40
+        switchport spanning-tree portfast
+            
+        interface range Ethernet4/2
         switchport mode access
         switchport access vlan 40
         switchport spanning-tree portfast
@@ -22,50 +32,50 @@
         switchport spanning-tree portfast
         switchport voice vlan 20
             
-        interface range Ethernet3/0
+        interface range Ethernet0/0
         switchport mode access
         switchport access vlan 10
         switchport spanning-tree portfast
         switchport voice vlan 20
             
-        interface range Ethernet3/1
+        interface range Ethernet0/1
         switchport mode access
         switchport access vlan 10
         switchport spanning-tree portfast
         switchport voice vlan 20
             
-        interface range Ethernet3/2
+        interface range Ethernet0/2
         switchport mode access
         switchport access vlan 10
         switchport spanning-tree portfast
         switchport voice vlan 20
-            
-        interface range Ethernet4/0
-        switchport mode access
-        switchport access vlan 50
-        switchport spanning-tree portfast
-            
-        interface range Ethernet4/1
-        switchport mode access
-        switchport access vlan 50
-        switchport spanning-tree portfast
-            
-        interface range Ethernet4/2
-        switchport mode access
-        switchport access vlan 50
-        switchport spanning-tree portfast
             
         interface range Ethernet5/0
         switchport mode access
-        switchport access vlan 30
+        switchport access vlan 50
         switchport spanning-tree portfast
             
         interface range Ethernet5/1
         switchport mode access
-        switchport access vlan 30
+        switchport access vlan 50
         switchport spanning-tree portfast
             
         interface range Ethernet5/2
+        switchport mode access
+        switchport access vlan 50
+        switchport spanning-tree portfast
+            
+        interface range Ethernet3/0
+        switchport mode access
+        switchport access vlan 30
+        switchport spanning-tree portfast
+            
+        interface range Ethernet3/1
+        switchport mode access
+        switchport access vlan 30
+        switchport spanning-tree portfast
+            
+        interface range Ethernet3/2
         switchport mode access
         switchport access vlan 30
         switchport spanning-tree portfast
