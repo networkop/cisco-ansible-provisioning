@@ -1,4 +1,4 @@
 #!/bin/bash
-ansible-playbook bootstrap.yml
-cat ./files/BR2-CORE.bootstrap
+ansible-playbook --tag=test site.yml
+cat ./files/BR2-CORE.bgp
 

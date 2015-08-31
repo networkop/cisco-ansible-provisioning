@@ -27,6 +27,7 @@ interface {{ interface }}
 {% if inventory_hostname in l2_links and inventory_hostname in groups['switches'] %}
   {%- for interface in l2_links[inventory_hostname] %} 
 interface {{ interface }}
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan {{ l2_links[inventory_hostname][interface] }}
   no shutdown

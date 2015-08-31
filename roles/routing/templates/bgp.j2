@@ -1,52 +1,55 @@
-{% for source in bgp_redistr_route_maps -%}
+{# start with  a redistribute route-maps #}
+{%- for source in bgp_redistr_route_maps %} 
 route-map RM-BGP-FROM-{{ source | upper }} permit 10
-  {% for clause in bgp_redistr_route_maps[source] -%}
+  {%- for clause in bgp_redistr_route_maps[source] %} 
   {{ clause }}
-  {% endfor -%}
-  !   
-{% endfor -%}
-!
+  {%- endfor %}
+{% endfor %}
+
+{# path manipulation route-maps #}    
 route-map RM-BGP-PREPEND-OUT permit 10
-{% for clause in bgp_out_rmap_prepend %}
+{%- for clause in bgp_out_rmap_prepend %} 
   {{ clause }}
 {% endfor -%}
+!  
+{# Prefix lists #}
+ip prefix-list PL-ALL-LOOPBACKS permit 0.0.0.0/0 ge 32 le 32
 !
-ip prefix-list PL-ALL-LOOPBACKS permit 0.0.0.0/0 le 32 ge 32
-!
+{# ibgp fallover route-map #}
 route-map RM-BGP-FALLOVER permit 10
   match ip address prefix PL-ALL-LOOPBACKS
 !
-
 router bgp {{ site_ASN }}
-{% if inventory_hostname in bgp_originate_network %}
-  {% for connected_interface in bgp_originate_network[inventory_hostname] -%}
-    network {{ l3_intf[inventory_hostname][connected_interface]| ipaddr('address') }} mask 255.255.255.255
-  {% endfor -%}
-{% endif %}
-{% if inventory_hostname in bgp_originate_redistribute %}
-  {% for source in bgp_originate_redistribute[inventory_hostname] -%}
-    redistribute {{ source }} route-map RM-BGP-FROM-{{ source | upper }} 
-  {% endfor -%}
-{% endif %}
-{%- if inventory_hostname in ebgp_peers %}
-  {%- for neighbor_ip in ebgp_peers[inventory_hostname] -%}
-    {% for option in ebgp_peers[inventory_hostname][neighbor_ip] -%}
-      neighbor {{ neighbor_ip }} {{ option }}
+{%- if inventory_hostname in bgp_originate_network %}
+  {%- for connected_interface in bgp_originate_network[inventory_hostname] %} 
+  network {{ l3_intf[inventory_hostname][connected_interface]| ipaddr('address') }} {{ l3_intf[inventory_hostname][connected_interface]| ipaddr('netmask') }}
+  {%- endfor %}
+{% endif -%}
+{%- if inventory_hostname in bgp_originate_redistribute %} 
+  {%- for source in bgp_originate_redistribute[inventory_hostname] %}  
+  redistribute {{ source | redistribute }} route-map RM-BGP-FROM-{{ source | upper }} 
+  {% endfor %}
+{% endif -%}
+{%- if inventory_hostname in ebgp_peers %} 
+  {%- for neighbor_ip in ebgp_peers[inventory_hostname] %} 
+    {%- for option in ebgp_peers[inventory_hostname][neighbor_ip] %} 
+  neighbor {{ neighbor_ip }} {{ option }} 
     {% endfor -%}
   {% endfor -%}
-{% endif %}
-{% if inventory_hostname in ibgp_topo.route_reflector %}
+{% endif -%} 
+{%- if inventory_hostname in ibgp_topo.route_reflector %}  
   neighbor RR-CLIENTS peer-group
   neighbor RR-CLIENTS remote-as {{ site_ASN }}
   neighbor RR-CLIENTS update-source {{ management_interface }}
   neighbor RR-CLIENTS fall-over route-map RM-BGP-FALLOVER
-  {% for clients in ibgp_topo.rr_clients -%}
-    neighbor {{ l3_intf[clients][management_interface] | ipaddr('address') }} peer-group RR-CLIENTS
+  neighbor RR-CLIENTS route-reflector-client
+  {%- for clients in ibgp_topo.rr_clients %} 
+  neighbor {{ l3_intf[clients][management_interface] | ipaddr('address') }} peer-group RR-CLIENTS
   {% endfor -%}
-{% endif %}
-{% if inventory_hostname in ibgp_topo.rr_clients %}
-  {%- for rr_server in ibgp_topo.route_reflector -%}
+{% endif -%}
+{%- if inventory_hostname in ibgp_topo.rr_clients %}
+  {%- for rr_server in ibgp_topo.route_reflector %} 
   neighbor {{ l3_intf[rr_server][management_interface] | ipaddr('address') }} remote-as {{ site_ASN }}
   neighbor {{ l3_intf[rr_server][management_interface] | ipaddr('address') }} update-source {{ management_interface }}
-  {% endfor -%}
+  {%- endfor %}
 {% endif %}

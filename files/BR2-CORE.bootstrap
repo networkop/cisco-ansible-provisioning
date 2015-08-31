@@ -23,26 +23,31 @@ interface Eth0/3
    
  
 interface Po11
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan 10-50
   no shutdown
    
 interface Eth1/1
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan except 40
   no shutdown
    
 interface Eth0/1
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan 12
   no shutdown
    
 interface Eth0/0
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan 11
   no shutdown
    
 interface Eth1/0
+  switchport trunk encapsulation dot1q
   switchport mode trunk
   switchport trunk allowed vlan 10,20,30,40,50
   no shutdown
